@@ -7,25 +7,31 @@ public class GameHandler : MonoBehaviour
     // Start is called before the first frame update
     public static GameHandler Istance;
     public Logger Logger;
-    public Player Player;
+    public PlayerController Player;
     public GroundManager GroundManager;
     public UnitsManager UnitsManager;
     IEnumerator Start()
     {
         Istance = this;
 
-        //istanze
+        //Creazione logger con priorità
         Logger = gameObject.AddComponent<Logger>();
-        Player = gameObject.AddComponent<Player>();
+        yield return new WaitUntil(() => Logger.Initialized);
+
+        //istanze
         GroundManager = gameObject.AddComponent<GroundManager>();
         UnitsManager = gameObject.AddComponent<UnitsManager>();
+
+        //waiting necessari
+        yield return new WaitUntil(() => GroundManager.Initialized);
+
+        //recupero il player
+        Player = GameObject.Find("Player").GetComponent<PlayerController>();
 
         //eventi
         Player.JustCreated += UnitsManager.JustCreatedHandler;
 
-        //waiting necessari
-        yield return new WaitUntil(() => GroundManager.Initialized);
-        
+
         //jobs
         GroundManager.GenerateGround();
     }

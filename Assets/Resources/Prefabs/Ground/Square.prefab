@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1058183461931526048}
   - component: {fileID: 5730142326946418599}
-  - component: {fileID: 3313155476962324692}
-  - component: {fileID: 7921203704315932119}
+  - component: {fileID: -2531879171723872185}
+  - component: {fileID: 3400202346855791375}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5730142326946418599
 SpriteRenderer:
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.745283, b: 0.1336062, a: 1}
+  m_Color: {r: 0.6666667, g: 0.78431374, b: 0.654902, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &3313155476962324692
+--- !u!61 &-2531879171723872185
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,9 +129,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75532186, y: 0.77196777}
+  m_Size: {x: 0.28175622, y: 0.32931954}
   m_EdgeRadius: 0
---- !u!114 &7921203704315932119
+--- !u!114 &3400202346855791375
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,6 +140,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2557113262471114441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdec0e0050b7b4ca9addce0aea83f63e, type: 3}
+  m_Script: {fileID: 11500000, guid: c80b562bbd13c4c96a5b7a0f759f2e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

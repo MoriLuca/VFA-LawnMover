@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] Text batteryLevel, loadLevel, coins, speed, seeds;
-    private PlayerMovementController playerController;
+    private PlayerController playerController;
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GetComponent<PlayerMovementController>();
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
