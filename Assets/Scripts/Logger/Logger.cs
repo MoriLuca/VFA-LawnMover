@@ -12,28 +12,28 @@ public class Logger : MonoBehaviour
         Initialized = true;
     }
 
-    public void Trace(object sender, string message) 
+    public void Trace(object sender, object message) 
     {
         if(_loggerMode == LoggerModes.Trace) PrintOnConsole(sender, message);
     }
 
-    public void Debug(object sender, string message)
+    public void Debug(object sender, object message)
     {
         if(_loggerMode <= LoggerModes.Debug) PrintOnConsole(sender, message);
     }
 
-    public void Info(object sender, string message)
+    public void Info(object sender, object message)
     {
         if(_loggerMode <= LoggerModes.Info) PrintOnConsole(sender, message);
     }
 
-    public void Error(object sender, string message)
+    public void Error(object sender, object message)
     {
         if(_loggerMode <= LoggerModes.Error) PrintOnConsole(sender, message);
     }
 
-    private void PrintOnConsole(object sender, string message)
+    private void PrintOnConsole(object sender, object message)
     {
-        print($"{sender.GetType().Name} | {message}");
+        print($"{sender.GetType().Name} | {message.ToString()}");
     }
 }

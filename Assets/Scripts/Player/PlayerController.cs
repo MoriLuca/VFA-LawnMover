@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private int _index_size_x = 1;
     private int _index_size_y = 1;
     private int[] _availableSizes = {0,1,3,5};
+    public GameObject ItemInPoket;
     
 
     void Start()
@@ -34,8 +35,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Z)) SizeDown();
-        if(Input.GetKeyDown(KeyCode.X)) SizeUp();
+        if(Input.GetKeyDown(KeyCode.Z)) PlayerAction();
+        if(Input.GetKeyDown(KeyCode.X)) UseItem();
         if(Input.GetKeyDown(KeyCode.R)) RepaintRequest();
         if(Input.GetKeyDown(KeyCode.T)) RandomizeSize();
         if(Input.GetKeyDown(KeyCode.G)) ChangeGraficStyle();
@@ -71,6 +72,16 @@ public class PlayerController : MonoBehaviour
                 
             }
         }
+    }
+
+    private void PlayerAction()
+    {
+
+    }
+
+    private void UseItem()
+    {
+
     }
 
     private void ChangeGraficStyle()
