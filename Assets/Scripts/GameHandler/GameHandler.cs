@@ -10,13 +10,23 @@ public class GameHandler : MonoBehaviour
     public Player Player;
     public GroundManager GroundManager;
     public UnitsManager UnitsManager;
-    void Start()
+    IEnumerator Start()
     {
         Istance = this;
+
+        //istanze
         Logger = gameObject.AddComponent<Logger>();
         Player = gameObject.AddComponent<Player>();
         GroundManager = gameObject.AddComponent<GroundManager>();
         UnitsManager = gameObject.AddComponent<UnitsManager>();
+
+        //eventi
         Player.JustCreated += UnitsManager.JustCreatedHandler;
+
+        //waiting necessari
+        yield return new WaitUntil(() => GroundManager.Initialized);
+        
+        //jobs
+        GroundManager.GenerateGround();
     }
 }
