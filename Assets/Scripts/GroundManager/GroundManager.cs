@@ -13,7 +13,7 @@ public class GroundManager : MonoBehaviour
     public int DimensioniCampoY = 20;
     private Sprite _flower;
     private Sprite _soil;
-    private List<GameObject> _elencoZolle;
+    private List<GameObject> _elencoZolle = new List<GameObject>();
     private WorldStyle _worldStyle;
     public GameObject[,] WorldStylesObjects = new GameObject[2,3];
 
@@ -26,11 +26,13 @@ public class GroundManager : MonoBehaviour
         var r = Resources.Load<GameObject>("Prefabs/Ground/PlainStyle/Step1");
         print(r);
         WorldStylesObjects[0,0] = Resources.Load<GameObject>("Prefabs/Ground/PlainStyle/Step1");
-        // WorldStylesObjects[0,1] = Resources.Load<GameObject>("Resources/Prefabs/Ground/PlainStyle/Step1");
-        // WorldStylesObjects[0,2] = Resources.Load<GameObject>("Resources/Prefabs/Ground/PlainStyle/Step1");
+        WorldStylesObjects[0,1] = Resources.Load<GameObject>("Prefabs/Ground/PlainStyle/Step2");
+        WorldStylesObjects[0,2] = Resources.Load<GameObject>("Prefabs/Ground/PlainStyle/Step3");
+
         if (WorldStylesObjects[0,0] == null){throw new FileNotFoundException("File non trovato");}
-        // if (WorldStylesObjects[0,1] == null){throw new FileNotFoundException("File non trovato");}
-        // if (WorldStylesObjects[0,2] == null){throw new FileNotFoundException("File non trovato");}
+        if (WorldStylesObjects[0,1] == null){throw new FileNotFoundException("File non trovato");}
+        if (WorldStylesObjects[0,2] == null){throw new FileNotFoundException("File non trovato");}
+
         Initialized = true;
     }
 
