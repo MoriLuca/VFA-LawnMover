@@ -9,7 +9,7 @@ public class GroundCollisionHandler : MonoBehaviour
     private PlayerController _player;
     private GameHandler _gameHandler;
     public bool Initialized {get; private set;}
-    private int _steps = 0;
+    public int Steps = 0;
     private int _life = 0;
 
     void Start()
@@ -33,14 +33,14 @@ public class GroundCollisionHandler : MonoBehaviour
 
     private void HandleGroundType()
     {
-
+        if(Steps == 2) return;
         var spriteRender = gameObject.GetComponent<SpriteRenderer>();
-        if(++_steps > 2) _steps = 0;
-        switch (_steps)
+        if(++Steps > 2) Steps = 2;
+        switch (Steps)
         {
             case 0: spriteRender.color = new Color32(170, 200, 167, 255); break;
             case 1: spriteRender.color = new Color32(233,255,194, 255) ; break;
-            case 2: spriteRender.color = new Color32(241, 195, 118, 255); break;
+            case 2: spriteRender.color = new Color32(195, 129, 84, 255); break;
             default: spriteRender.color = Color.white; break;
         }
     }

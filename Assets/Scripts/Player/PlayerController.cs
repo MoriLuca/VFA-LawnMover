@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
         _gameHandler = GameHandler.Istance;
         _log = _gameHandler.Logger;
         _groundManager = _gameHandler.GroundManager;
+        _log.Debug(this, "g manager");
+        _log.Debug(this, _groundManager.ToString());
         JustCreated?.Invoke(this,null);
         Initialized = true;
     }
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.X)) SizeUp();
         if(Input.GetKeyDown(KeyCode.R)) RepaintRequest();
         if(Input.GetKeyDown(KeyCode.T)) RandomizeSize();
+        if(Input.GetKeyDown(KeyCode.G)) ChangeGraficStyle();
 
         if (!IsMoving)
         {
@@ -68,6 +71,11 @@ public class PlayerController : MonoBehaviour
                 
             }
         }
+    }
+
+    private void ChangeGraficStyle()
+    {
+        _groundManager.ChangeGraficStyle();
     }
 
     public void SizeDown()

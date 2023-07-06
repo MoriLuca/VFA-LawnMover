@@ -21,12 +21,12 @@ public class GameHandler : MonoBehaviour
         //istanze
         GroundManager = gameObject.AddComponent<GroundManager>();
         UnitsManager = gameObject.AddComponent<UnitsManager>();
+        //recupero il player
+        var playerGo = GameObject.Find("Player");
+        Player = playerGo.AddComponent<PlayerController>();
 
         //waiting necessari
         yield return new WaitUntil(() => GroundManager.Initialized);
-
-        //recupero il player
-        Player = GameObject.Find("Player").GetComponent<PlayerController>();
 
         //eventi
         Player.JustCreated += UnitsManager.JustCreatedHandler;
