@@ -14,7 +14,7 @@ public class GroundManager : MonoBehaviour
     private List<GameObject> _elencoZolle = new List<GameObject>();
     private WorldStyle _worldStyle;
     public Sprite[] GroundStyleInUse = new Sprite[3];
-    private Sprite[,] GroundStyleSprites = new Sprite[2,3];
+    private Sprite[,] GroundStyleSprites = new Sprite[3,3];
     void Start()
     {
         _log = GameHandler.Istance.Logger;
@@ -32,6 +32,13 @@ public class GroundManager : MonoBehaviour
         GroundStyleSprites[1,0] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelArtBad/Stage1");
         GroundStyleSprites[1,1] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelArtBad/Stage2");
         GroundStyleSprites[1,2] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelArtBad/Stage3");
+        if (GroundStyleSprites[1,0] == null){throw new FileNotFoundException("File non trovato");}
+        if (GroundStyleSprites[1,1] == null){throw new FileNotFoundException("File non trovato");}
+        if (GroundStyleSprites[1,2] == null){throw new FileNotFoundException("File non trovato");}
+        //pixel snow
+        GroundStyleSprites[2,0] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelSnow/Stage1");
+        GroundStyleSprites[2,1] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelSnow/Stage2");
+        GroundStyleSprites[2,2] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelSnow/Stage3");
         if (GroundStyleSprites[1,0] == null){throw new FileNotFoundException("File non trovato");}
         if (GroundStyleSprites[1,1] == null){throw new FileNotFoundException("File non trovato");}
         if (GroundStyleSprites[1,2] == null){throw new FileNotFoundException("File non trovato");}
@@ -107,5 +114,6 @@ public class GroundManager : MonoBehaviour
 public enum WorldStyle
 {
     Plain = 0,
-    BadPixelArt
+    BadPixelArt,
+    PixelSnow
 }
