@@ -8,6 +8,7 @@ public class GroundCollisionHandler : MonoBehaviour
     private Logger _log;
     private PlayerController _player;
     private GameHandler _gameHandler;
+    private GroundManager _groundManager;
     public bool Initialized {get; private set;}
     public int Steps = 0;
     private int _life = 0;
@@ -15,6 +16,7 @@ public class GroundCollisionHandler : MonoBehaviour
     void Start()
     {
         _gameHandler = GameObject.Find("GameManager").GetComponent<GameHandler>();
+        _groundManager = _gameHandler.GroundManager;
         _log = _gameHandler.Logger;
         _player = _gameHandler.Player;
         Initialized = true;
@@ -33,15 +35,15 @@ public class GroundCollisionHandler : MonoBehaviour
 
     private void HandleGroundType()
     {
-        if(Steps == 2) return;
+        if(Steps++ >= 2) return;
         var spriteRender = gameObject.GetComponent<SpriteRenderer>();
-        if(++Steps > 2) Steps = 2;
+
         switch (Steps)
         {
-            case 0: spriteRender.color = new Color32(170, 200, 167, 255); break;
-            case 1: spriteRender.color = new Color32(233,255,194, 255) ; break;
-            case 2: spriteRender.color = new Color32(195, 129, 84, 255); break;
-            default: spriteRender.color = Color.white; break;
+            case 0: spriteRender.sprite = _groundManager.GroundStyleInUse[2]; break;
+            case 1: spriteRender.sprite = _groundManager.GroundStyleInUse[1]; break;
+            case 2: spriteRender.sprite = _groundManager.GroundStyleInUse[0]; break;
+            // defautl magari creare un default sprite per eventuali errori
         }
     }
 

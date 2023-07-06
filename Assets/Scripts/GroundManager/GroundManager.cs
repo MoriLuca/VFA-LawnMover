@@ -11,27 +11,28 @@ public class GroundManager : MonoBehaviour
     public bool Initialized = false;
     public int DimensioniCampoX = 50;
     public int DimensioniCampoY = 20;
-    private Sprite _flower;
-    private Sprite _soil;
     private List<GameObject> _elencoZolle = new List<GameObject>();
     private WorldStyle _worldStyle;
-    public GameObject[,] WorldStylesObjects = new GameObject[2,3];
-
+    public Sprite[] GroundStyleInUse = new Sprite[3];
+    private Sprite[,] GroundStyleSprites = new Sprite[2,3];
     void Start()
     {
         _log = GameHandler.Istance.Logger;
         _log.Trace(this, "Created");
 
         //plain style
-        var r = Resources.Load<GameObject>("Prefabs/Ground/PlainStyle/Step1");
-        print(r);
-        WorldStylesObjects[0,0] = Resources.Load<GameObject>("Prefabs/Ground/PlainStyle/Step1");
-        WorldStylesObjects[0,1] = Resources.Load<GameObject>("Prefabs/Ground/PlainStyle/Step2");
-        WorldStylesObjects[0,2] = Resources.Load<GameObject>("Prefabs/Ground/PlainStyle/Step3");
+        _zolla = Resources.Load<GameObject>("Prefabs/Ground/Ground");
+        GroundStyleSprites[0,0] = Resources.Load<Sprite>("Gfx/Png/Ground/StylePlain/Stage1");
+        GroundStyleSprites[0,1] = Resources.Load<Sprite>("Gfx/Png/Ground/StylePlain/Stage2");
+        GroundStyleSprites[0,2] = Resources.Load<Sprite>("Gfx/Png/Ground/StylePlain/Stage3");
 
-        if (WorldStylesObjects[0,0] == null){throw new FileNotFoundException("File non trovato");}
-        if (WorldStylesObjects[0,1] == null){throw new FileNotFoundException("File non trovato");}
-        if (WorldStylesObjects[0,2] == null){throw new FileNotFoundException("File non trovato");}
+        if (GroundStyleSprites[0,0] == null){throw new FileNotFoundException("File non trovato");}
+        if (GroundStyleSprites[0,1] == null){throw new FileNotFoundException("File non trovato");}
+        if (GroundStyleSprites[0,2] == null){throw new FileNotFoundException("File non trovato");}
+
+        GroundStyleInUse[0] = GroundStyleSprites[0,0];
+        GroundStyleInUse[1] = GroundStyleSprites[0,1];
+        GroundStyleInUse[2] = GroundStyleSprites[0,2];
 
         Initialized = true;
     }
@@ -43,7 +44,8 @@ public class GroundManager : MonoBehaviour
         {
             for (int j = 0; j < DimensioniCampoY; j++)
             {
-                var zolla = Instantiate(WorldStylesObjects[0,0], new Vector3(i, j, 0), Quaternion.identity);
+                var zolla = Instantiate(_zolla, new Vector3(i, j, 0), Quaternion.identity);
+                zolla.GetComponent<SpriteRenderer>().sprite = GroundStyleInUse[2];
                 _elencoZolle.Add(zolla);
             }
         }
@@ -52,13 +54,18 @@ public class GroundManager : MonoBehaviour
     public void ChangeGraficStyle()
     {
         _log.Trace(this, "Cambio di style richiesto");
-        if((int)_worldStyle == Enum.GetValues(typeof(WorldStyle)).Length)
+        if((int)_worldStyle == Enum.GetValues(typeof(WorldStyle)).Length -1)
         {
             _worldStyle++;
         }
         else{
             _worldStyle = WorldStyle.Plain;
         }
+
+        GroundStyleInUse[0] = GroundStyleSprites[(int)_worldStyle, 0];
+        GroundStyleInUse[1] = GroundStyleSprites[(int)_worldStyle, 1];
+        GroundStyleInUse[2] = GroundStyleSprites[(int)_worldStyle, 2];
+
         foreach (var zolla in _elencoZolle)
         {
             SwapZollaStyle(zolla);
@@ -79,6 +86,6 @@ public class GroundManager : MonoBehaviour
 
 public enum WorldStyle
 {
-    Plain = 1,
+    Plain = 0,
     BadPixelArt
 }
