@@ -40,9 +40,9 @@ public class GroundCollisionHandler : MonoBehaviour
 
         switch (Steps)
         {
-            case 0: spriteRender.sprite = _groundManager.GroundStyleInUse[2]; break;
+            case 0: spriteRender.sprite = _groundManager.GroundStyleInUse[0]; break;
             case 1: spriteRender.sprite = _groundManager.GroundStyleInUse[1]; break;
-            case 2: spriteRender.sprite = _groundManager.GroundStyleInUse[0]; break;
+            case 2: spriteRender.sprite = _groundManager.GroundStyleInUse[2]; break;
             // defautl magari creare un default sprite per eventuali errori
         }
     }

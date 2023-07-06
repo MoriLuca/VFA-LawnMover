@@ -39,13 +39,23 @@ public class GroundManager : MonoBehaviour
 
     public void GenerateGround()
     {
+        print("genero");
         _log.Trace(this, "inizio la creazione del terreno");
+        if(_elencoZolle.Count > 0) 
+        {
+            foreach (var x in _elencoZolle)
+            {
+                Destroy(x);
+            }
+        }
+        _elencoZolle.Clear();
+        
         for (int i = 0; i < DimensioniCampoX; i++)
         {
             for (int j = 0; j < DimensioniCampoY; j++)
             {
                 var zolla = Instantiate(_zolla, new Vector3(i, j, 0), Quaternion.identity);
-                zolla.GetComponent<SpriteRenderer>().sprite = GroundStyleInUse[2];
+                zolla.GetComponent<SpriteRenderer>().sprite = GroundStyleInUse[0];
                 _elencoZolle.Add(zolla);
             }
         }
@@ -74,8 +84,8 @@ public class GroundManager : MonoBehaviour
 
     private void SwapZollaStyle(GameObject zolla)
     {
-        // Sprite toBeUsed = _zolla;
-        // zolla.transform.GetComponent<SpriteRenderer>().sprite = toBeUsed;
+        int step = zolla.GetComponent<GroundCollisionHandler>().Steps;
+        zolla.GetComponent<SpriteRenderer>().sprite = GroundStyleInUse[step];
     }
 
     // Update is called once per frame

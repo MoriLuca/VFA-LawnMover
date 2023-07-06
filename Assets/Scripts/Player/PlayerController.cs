@@ -118,7 +118,11 @@ public class PlayerController : MonoBehaviour
         MapMoveSpeed();
     }
 
-    private void RepaintRequest() => _groundManager.GenerateGround();
+    private void RepaintRequest()
+    {
+        print("richiesta repaint");
+        _groundManager.GenerateGround();
+    } 
 
     private void OnTriggerEnter2D(Collider2D collider) 
     {
