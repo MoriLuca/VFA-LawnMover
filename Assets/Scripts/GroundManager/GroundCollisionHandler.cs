@@ -35,7 +35,10 @@ public class GroundCollisionHandler : MonoBehaviour
 
     private void HandleGroundType()
     {
-        if(Steps++ >= 2) return;
+        if(Steps > 2) Steps = 2;
+        if(Steps == 2) return;
+        Steps++;
+
         var spriteRender = gameObject.GetComponent<SpriteRenderer>();
 
         switch (Steps)

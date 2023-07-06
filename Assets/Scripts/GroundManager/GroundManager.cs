@@ -19,16 +19,23 @@ public class GroundManager : MonoBehaviour
     {
         _log = GameHandler.Istance.Logger;
         _log.Trace(this, "Created");
+        _zolla = Resources.Load<GameObject>("Prefabs/Ground/Ground");
 
         //plain style
-        _zolla = Resources.Load<GameObject>("Prefabs/Ground/Ground");
         GroundStyleSprites[0,0] = Resources.Load<Sprite>("Gfx/Png/Ground/StylePlain/Stage1");
         GroundStyleSprites[0,1] = Resources.Load<Sprite>("Gfx/Png/Ground/StylePlain/Stage2");
         GroundStyleSprites[0,2] = Resources.Load<Sprite>("Gfx/Png/Ground/StylePlain/Stage3");
-
         if (GroundStyleSprites[0,0] == null){throw new FileNotFoundException("File non trovato");}
         if (GroundStyleSprites[0,1] == null){throw new FileNotFoundException("File non trovato");}
         if (GroundStyleSprites[0,2] == null){throw new FileNotFoundException("File non trovato");}
+        //bad pixel art
+        GroundStyleSprites[1,0] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelArtBad/Stage1");
+        GroundStyleSprites[1,1] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelArtBad/Stage2");
+        GroundStyleSprites[1,2] = Resources.Load<Sprite>("Gfx/Png/Ground/PixelArtBad/Stage3");
+        if (GroundStyleSprites[1,0] == null){throw new FileNotFoundException("File non trovato");}
+        if (GroundStyleSprites[1,1] == null){throw new FileNotFoundException("File non trovato");}
+        if (GroundStyleSprites[1,2] == null){throw new FileNotFoundException("File non trovato");}
+
 
         GroundStyleInUse[0] = GroundStyleSprites[0,0];
         GroundStyleInUse[1] = GroundStyleSprites[0,1];
@@ -49,7 +56,7 @@ public class GroundManager : MonoBehaviour
             }
         }
         _elencoZolle.Clear();
-        
+
         for (int i = 0; i < DimensioniCampoX; i++)
         {
             for (int j = 0; j < DimensioniCampoY; j++)
@@ -64,13 +71,15 @@ public class GroundManager : MonoBehaviour
     public void ChangeGraficStyle()
     {
         _log.Trace(this, "Cambio di style richiesto");
-        if((int)_worldStyle == Enum.GetValues(typeof(WorldStyle)).Length -1)
+        if((int)_worldStyle < Enum.GetValues(typeof(WorldStyle)).Length -1)
         {
             _worldStyle++;
         }
         else{
-            _worldStyle = WorldStyle.Plain;
+            _worldStyle = (WorldStyle)0;
         }
+
+        _log.Trace(this, $"index stile {(int)_worldStyle}");
 
         GroundStyleInUse[0] = GroundStyleSprites[(int)_worldStyle, 0];
         GroundStyleInUse[1] = GroundStyleSprites[(int)_worldStyle, 1];
@@ -86,6 +95,7 @@ public class GroundManager : MonoBehaviour
     {
         int step = zolla.GetComponent<GroundCollisionHandler>().Steps;
         zolla.GetComponent<SpriteRenderer>().sprite = GroundStyleInUse[step];
+        _log.Trace(this, "stile zolla modificato");
     }
 
     // Update is called once per frame
