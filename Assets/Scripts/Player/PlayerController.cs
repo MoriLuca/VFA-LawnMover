@@ -81,7 +81,12 @@ public class PlayerController : MonoBehaviour
 
     private void UseItem()
     {
-
+        var item = gameObject.GetComponent<DisposableItemBase>();
+        if(gameObject.GetComponent<DisposableItemBase>() != null)
+        {
+            _log.Trace(this, "Im using the object");
+            item.Use();
+        }
     }
 
     private void ChangeGraficStyle()
@@ -120,7 +125,7 @@ public class PlayerController : MonoBehaviour
         var input = (_index_size_x > _index_size_y)?_index_size_x:_index_size_y;
 
         MoveSpeed = output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start);
-
+        MoveSpeed = 15;
     }
 
     private void ApplySize()

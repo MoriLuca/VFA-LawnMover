@@ -52,26 +52,31 @@ public class GroundCollisionHandler : MonoBehaviour
 
     private void FeelLucky()
     {
-        var fortune = Random.Range(0,101);
-        if(fortune>95) DropGoodItem();
-        else if (fortune<6 && fortune > 2) DropBadItem();
-        else if (fortune <= 1) DropASituation();
+        var fortune = Random.Range(0,1001);
+        if(fortune>950) DropGoodItem();
+        else if (fortune<70 && fortune > 20) DropBadItem();
+        // else if (fortune <= 1) DropASituation();
 
     }
 
     public void DropGoodItem()
     {
-        _log.Debug(this, "dropped good item");
-        _player.SizeUp();
+        _log.Trace(this, "dropped good item");
+        var items = _player.gameObject.GetComponents<DisposableItemBase>();
+        if(items != null && items.Length > 0) foreach (var i in items) Destroy(i);
+        _player.gameObject.AddComponent<diSizeUP>();
     }
     public void DropBadItem()
     {
-        _log.Debug(this, "dropped bad item");
-        _player.SizeDown();
+        _log.Trace(this, "dropped bad item");
+        var items = _player.gameObject.GetComponents<DisposableItemBase>();
+        if(items != null && items.Length > 0) foreach (var i in items) Destroy(i);
+        _player.gameObject.AddComponent<diSizeDown>();
+        
     }
     public void DropASituation()
     {
-        _log.Debug(this, "we got a situation");
-        _player.RandomizeSize();
+        _log.Trace(this, "we got a situation");
+        //_player.RandomizeSize();
     }
 }
