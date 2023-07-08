@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class GroundManager : MonoBehaviour
@@ -75,6 +76,33 @@ public class GroundManager : MonoBehaviour
         }
     }
 
+
+    public List<GameObject> FindZolleForExplosion(Vector2Int position)
+    {
+        var explosionRangeX = UnityEngine.Random.Range(0,5);
+        var explosionRangeY = UnityEngine.Random.Range(0,5);
+
+        var zolle = _elencoZolle.Where(z=> 
+            ( (position.x - explosionRangeX) <= z.transform.position.x &&  z.transform.position.x <= ( position.x + explosionRangeX) ) && 
+            ( (position.y - explosionRangeY) <= z.transform.position.y &&  z.transform.position.y <= ( position.y + explosionRangeY) )).ToList();
+
+        return zolle;
+    }
+
+
+    public void ItemDiscardedEventHandler(object sender, Vector2Int position)
+    {
+        _log.Debug(this, "evento discard item");
+        var zolleEspolosione = FindZolleForExplosion(position);
+
+        foreach (var zolla in zolleEspolosione)
+        {
+
+            zolla.GetComponent<GroundCollisionHandler>().Steps = 2;
+            zolla.GetComponent<GroundCollisionHandler>().ForceRefresh();
+        }
+    }
+
     public void ChangeGraficStyle()
     {
         _log.Trace(this, "Cambio di style richiesto");
@@ -109,11 +137,4 @@ public class GroundManager : MonoBehaviour
     void Update()
     {
     }
-}
-
-public enum WorldStyle
-{
-    Plain = 0,
-    BadPixelArt,
-    PixelSnow
 }

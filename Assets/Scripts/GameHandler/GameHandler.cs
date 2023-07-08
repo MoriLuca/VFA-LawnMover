@@ -34,6 +34,7 @@ public class GameHandler : MonoBehaviour
         //eventi
         Player.JustCreated += UnitsManager.JustCreatedHandler;
         Player.RefreshGameInfoUIEvent += GameInfoUI.RefreshGameInfoUIEventHandler;
+        Player.ItemDiscardedEvent += GroundManager.ItemDiscardedEventHandler;
 
 
         //jobs

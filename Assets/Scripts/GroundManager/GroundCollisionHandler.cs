@@ -35,14 +35,19 @@ public class GroundCollisionHandler : MonoBehaviour
         HandleGroundType();
     }
 
+    public void ForceRefresh() => ChangeGroundType();
+
     private void HandleGroundType()
     {
         if(Steps > 2) Steps = 2;
         if(Steps == 2) return;
         Steps++;
+        ChangeGroundType();        
+    }
 
+    private void ChangeGroundType()
+    {
         var spriteRender = gameObject.GetComponent<SpriteRenderer>();
-
         switch (Steps)
         {
             case 0: spriteRender.sprite = _groundManager.GroundStyleInUse[0]; break;
@@ -54,6 +59,7 @@ public class GroundCollisionHandler : MonoBehaviour
 
     private void FeelLucky()
     {
+        if(_player.ItemInPoket is not null) return;
         var fortune = UnityEngine.Random.Range(0,1001);
         if(fortune>950) DropGoodItem();
         else if (fortune<70 && fortune > 20) DropBadItem();

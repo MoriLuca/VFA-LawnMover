@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool Initialized { get; private set; }
     public event EventHandler JustCreated;
     public event EventHandler RefreshGameInfoUIEvent;
+    public event EventHandler<Vector2Int> ItemDiscardedEvent;
     private bool IsMoving;
     public LayerMask SceneObjectsLayer;
     public float MovementStep = 1;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R)) RepaintRequest();
         if(Input.GetKeyDown(KeyCode.T)) RandomizeSize();
         if(Input.GetKeyDown(KeyCode.G)) ChangeGraficStyle();
+        if(Input.GetKeyDown(KeyCode.C)) DiscardItem();
 
         if (!IsMoving)
         {
@@ -96,6 +98,19 @@ public class PlayerController : MonoBehaviour
             item.Use();
             ItemInPoket = null;
             
+        }
+        TriggerGameInfoUIRefresh();
+    }
+
+    private void DiscardItem()
+    {
+        var item = ItemInPoket;
+        if(item != null)
+        {
+            _log.Trace(this, "Im descarding the item");
+            ItemInPoket = null;
+            ItemDiscardedEvent?.Invoke(
+                this, new Vector2Int((int)gameObject.transform.position.x, (int)gameObject.transform.position.y));
         }
         TriggerGameInfoUIRefresh();
     }
