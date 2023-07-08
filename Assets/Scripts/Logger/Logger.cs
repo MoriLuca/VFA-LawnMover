@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Logger : MonoBehaviour
 {
-    private LoggerModes _loggerMode = LoggerModes.Trace;
+    private LoggerModes _loggerMode = LoggerModes.Debug;
     public bool Initialized { get; private set; }
     void Start()
     {

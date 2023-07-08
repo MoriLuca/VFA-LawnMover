@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private GroundManager _groundManager;
     public bool Initialized { get; private set; }
     public event EventHandler JustCreated;
+    public event EventHandler RefreshGameInfoUIEvent;
     private bool IsMoving;
     public LayerMask SceneObjectsLayer;
     public float MovementStep = 1;
@@ -79,6 +80,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public bool HasCapsuleAvailable()
+    {
+        return gameObject.GetComponent<DisposableItemBase>() != null;
+    }
+
     private void UseItem()
     {
         var item = gameObject.GetComponent<DisposableItemBase>();
@@ -86,12 +92,20 @@ public class PlayerController : MonoBehaviour
         {
             _log.Trace(this, "Im using the object");
             item.Use();
+            
         }
+        TriggerGameInfoUIRefresh();
     }
 
     private void ChangeGraficStyle()
     {
         _groundManager.ChangeGraficStyle();
+        TriggerGameInfoUIRefresh();
+    }
+
+    public void TriggerGameInfoUIRefresh()
+    {
+        RefreshGameInfoUIEvent?.Invoke(this, null);
     }
 
     public void SizeDown()
@@ -132,6 +146,7 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.transform.localScale = new Vector3(_availableSizes[_index_size_x],_availableSizes[_index_size_y],0);
         MapMoveSpeed();
+        TriggerGameInfoUIRefresh();
     }
 
     private void RepaintRequest()

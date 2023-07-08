@@ -10,6 +10,8 @@ public class GameHandler : MonoBehaviour
     public PlayerController Player;
     public GroundManager GroundManager;
     public UnitsManager UnitsManager;
+    public GameInfoUI GameInfoUI;
+
     IEnumerator Start()
     {
         Istance = this;
@@ -21,6 +23,7 @@ public class GameHandler : MonoBehaviour
         //istanze
         GroundManager = gameObject.AddComponent<GroundManager>();
         UnitsManager = gameObject.AddComponent<UnitsManager>();
+        GameInfoUI = gameObject.AddComponent<GameInfoUI>();
         //recupero il player
         var playerGo = GameObject.Find("Player");
         Player = playerGo.AddComponent<PlayerController>();
@@ -30,6 +33,7 @@ public class GameHandler : MonoBehaviour
 
         //eventi
         Player.JustCreated += UnitsManager.JustCreatedHandler;
+        Player.RefreshGameInfoUIEvent += GameInfoUI.RefreshGameInfoUIEventHandler;
 
 
         //jobs

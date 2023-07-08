@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,7 @@ public class GroundCollisionHandler : MonoBehaviour
     private GameHandler _gameHandler;
     private GroundManager _groundManager;
     public bool Initialized {get; private set;}
+    public event EventHandler RefreshGameInfoUIEvent;
     public int Steps = 0;
     private int _life = 0;
 
@@ -52,7 +54,7 @@ public class GroundCollisionHandler : MonoBehaviour
 
     private void FeelLucky()
     {
-        var fortune = Random.Range(0,1001);
+        var fortune = UnityEngine.Random.Range(0,1001);
         if(fortune>950) DropGoodItem();
         else if (fortune<70 && fortune > 20) DropBadItem();
         // else if (fortune <= 1) DropASituation();
@@ -61,22 +63,25 @@ public class GroundCollisionHandler : MonoBehaviour
 
     public void DropGoodItem()
     {
-        _log.Trace(this, "dropped good item");
+        _log.Debug(this, "dropped good item");
         var items = _player.gameObject.GetComponents<DisposableItemBase>();
         if(items != null && items.Length > 0) foreach (var i in items) Destroy(i);
         _player.gameObject.AddComponent<diSizeUP>();
+        _player.TriggerGameInfoUIRefresh();
     }
     public void DropBadItem()
     {
-        _log.Trace(this, "dropped bad item");
+        _log.Debug(this, "dropped bad item");
         var items = _player.gameObject.GetComponents<DisposableItemBase>();
         if(items != null && items.Length > 0) foreach (var i in items) Destroy(i);
         _player.gameObject.AddComponent<diSizeDown>();
+        _player.TriggerGameInfoUIRefresh();
         
     }
     public void DropASituation()
     {
-        _log.Trace(this, "we got a situation");
+        _log.Debug(this, "we got a situation");
         //_player.RandomizeSize();
+        _player.TriggerGameInfoUIRefresh();
     }
 }
