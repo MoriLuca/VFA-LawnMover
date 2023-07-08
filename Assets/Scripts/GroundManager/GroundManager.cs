@@ -12,7 +12,7 @@ public class GroundManager : MonoBehaviour
     public bool Initialized = false;
     public int DimensioniCampoX = 50;
     public int DimensioniCampoY = 20;
-    private List<GameObject> _elencoZolle = new List<GameObject>();
+    public  List<GameObject> ElencoZolle {get; private set;} = new List<GameObject>();
     private WorldStyle _worldStyle;
     public Sprite[] GroundStyleInUse = new Sprite[3];
     private Sprite[,] GroundStyleSprites = new Sprite[3,3];
@@ -56,14 +56,14 @@ public class GroundManager : MonoBehaviour
     {
         print("genero");
         _log.Trace(this, "inizio la creazione del terreno");
-        if(_elencoZolle.Count > 0) 
+        if(ElencoZolle.Count > 0) 
         {
-            foreach (var x in _elencoZolle)
+            foreach (var x in ElencoZolle)
             {
                 Destroy(x);
             }
         }
-        _elencoZolle.Clear();
+        ElencoZolle.Clear();
 
         for (int i = 0; i < DimensioniCampoX; i++)
         {
@@ -71,7 +71,7 @@ public class GroundManager : MonoBehaviour
             {
                 var zolla = Instantiate(_zolla, new Vector3(i, j, 0), Quaternion.identity);
                 zolla.GetComponent<SpriteRenderer>().sprite = GroundStyleInUse[0];
-                _elencoZolle.Add(zolla);
+                ElencoZolle.Add(zolla);
             }
         }
     }
@@ -82,7 +82,7 @@ public class GroundManager : MonoBehaviour
         var explosionRangeX = UnityEngine.Random.Range(0,5);
         var explosionRangeY = UnityEngine.Random.Range(0,5);
 
-        var zolle = _elencoZolle.Where(z=> 
+        var zolle = ElencoZolle.Where(z=> 
             ( (position.x - explosionRangeX) <= z.transform.position.x &&  z.transform.position.x <= ( position.x + explosionRangeX) ) && 
             ( (position.y - explosionRangeY) <= z.transform.position.y &&  z.transform.position.y <= ( position.y + explosionRangeY) )).ToList();
 
@@ -120,7 +120,7 @@ public class GroundManager : MonoBehaviour
         GroundStyleInUse[1] = GroundStyleSprites[(int)_worldStyle, 1];
         GroundStyleInUse[2] = GroundStyleSprites[(int)_worldStyle, 2];
 
-        foreach (var zolla in _elencoZolle)
+        foreach (var zolla in ElencoZolle)
         {
             SwapZollaStyle(zolla);
         }

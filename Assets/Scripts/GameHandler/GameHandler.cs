@@ -9,6 +9,7 @@ public class GameHandler : MonoBehaviour
     public Logger Logger;
     public PlayerController Player;
     public GroundManager GroundManager;
+    public GameScoreManager GameScoreManager;
     public UnitsManager UnitsManager;
     public GameInfoUI GameInfoUI;
 
@@ -24,6 +25,7 @@ public class GameHandler : MonoBehaviour
         GroundManager = gameObject.AddComponent<GroundManager>();
         UnitsManager = gameObject.AddComponent<UnitsManager>();
         GameInfoUI = gameObject.AddComponent<GameInfoUI>();
+        GameScoreManager = gameObject.AddComponent<GameScoreManager>();
         //recupero il player
         var playerGo = GameObject.Find("Player");
         Player = playerGo.AddComponent<PlayerController>();
