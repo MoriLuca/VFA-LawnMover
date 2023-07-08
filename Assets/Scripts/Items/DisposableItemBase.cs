@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisposableItemBase : MonoBehaviour
+public class DisposableItemBase
 {
     internal GameHandler _gameHandler;
     internal Logger _log;
@@ -16,6 +16,13 @@ public class DisposableItemBase : MonoBehaviour
         _log = _gameHandler.Logger;
         _player = _gameHandler.Player;
         Initialized = true;
+        _log.Debug(this, "signori sono l'item");
     }
+
+    public DisposableItemBase()
+    {
+        Start();
+    }
+
     public virtual void Use() {}
 }

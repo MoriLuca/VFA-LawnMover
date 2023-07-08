@@ -64,17 +64,13 @@ public class GroundCollisionHandler : MonoBehaviour
     public void DropGoodItem()
     {
         _log.Debug(this, "dropped good item");
-        var items = _player.gameObject.GetComponents<DisposableItemBase>();
-        if(items != null && items.Length > 0) foreach (var i in items) Destroy(i);
-        _player.gameObject.AddComponent<diSizeUP>();
+        _player.ItemInPoket = new diSizeUP();
         _player.TriggerGameInfoUIRefresh();
     }
     public void DropBadItem()
     {
         _log.Debug(this, "dropped bad item");
-        var items = _player.gameObject.GetComponents<DisposableItemBase>();
-        if(items != null && items.Length > 0) foreach (var i in items) Destroy(i);
-        _player.gameObject.AddComponent<diSizeDown>();
+        _player.ItemInPoket = new diSizeDown();
         _player.TriggerGameInfoUIRefresh();
         
     }

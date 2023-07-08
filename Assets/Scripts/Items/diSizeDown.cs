@@ -4,7 +4,5 @@ public class diSizeDown : DisposableItemBase
     public override void Use()
     {
         _player.SizeDown();
-        var item = gameObject.GetComponent<diSizeDown>();
-        Destroy(item);
     }
 }

@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private int _index_size_x = 1;
     private int _index_size_y = 1;
     private int[] _availableSizes = {0,1,3,5};
-    public GameObject ItemInPoket;
+    public DisposableItemBase ItemInPoket;
     
 
     void Start()
@@ -82,16 +82,19 @@ public class PlayerController : MonoBehaviour
 
     public bool HasCapsuleAvailable()
     {
-        return gameObject.GetComponent<DisposableItemBase>() != null;
+        return ItemInPoket is not null;
     }
 
     private void UseItem()
     {
-        var item = gameObject.GetComponent<DisposableItemBase>();
-        if(gameObject.GetComponent<DisposableItemBase>() != null)
+
+
+        var item = ItemInPoket;
+        if(item != null)
         {
             _log.Trace(this, "Im using the object");
             item.Use();
+            ItemInPoket = null;
             
         }
         TriggerGameInfoUIRefresh();
