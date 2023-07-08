@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private bool IsMoving;
     public LayerMask SceneObjectsLayer;
     public float MovementStep = 1;
-    public float MoveSpeed = 3;
+    public float MoveSpeed = 10;
     private Vector2 _input;
     private int _index_size_x = 1;
     private int _index_size_y = 1;
@@ -114,16 +114,16 @@ public class PlayerController : MonoBehaviour
     public void SizeDown()
     {
         _index_size_x--;
-        if(_index_size_x<1) _index_size_x=1;
         _index_size_y--;
+        if(_index_size_x<1) _index_size_x=1;
         if(_index_size_y<1) _index_size_y=1;
         ApplySize();
     }
     public void SizeUp(){
         _index_size_x++;
-        if(_index_size_x<0) _index_size_x=0;
         _index_size_y++;
-        if(_index_size_y<0) _index_size_y=0;
+        if(_index_size_x>3) _index_size_x=3;
+        if(_index_size_y>3) _index_size_y=3;
         ApplySize();
     }
 
@@ -148,7 +148,6 @@ public class PlayerController : MonoBehaviour
     private void ApplySize()
     {
         gameObject.transform.localScale = new Vector3(_availableSizes[_index_size_x],_availableSizes[_index_size_y],0);
-        MapMoveSpeed();
         TriggerGameInfoUIRefresh();
     }
 

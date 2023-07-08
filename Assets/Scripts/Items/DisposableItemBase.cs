@@ -8,7 +8,7 @@ public class DisposableItemBase
     internal Logger _log;
     internal PlayerController _player;
     public bool Initialized { get; private set; }
-    public string Name {get;set;}
+    public virtual string Name {get;set;}
 
     internal void Start()
     {

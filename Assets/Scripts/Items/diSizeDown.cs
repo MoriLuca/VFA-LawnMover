@@ -1,6 +1,6 @@
 public class diSizeDown : DisposableItemBase
 {
-    public string Name {get;set;} = "SizeDown";
+    public override string Name {get;set;} = "SizeDown";
     public override void Use()
     {
         _player.SizeDown();

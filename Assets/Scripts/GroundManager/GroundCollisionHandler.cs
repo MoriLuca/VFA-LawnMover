@@ -57,7 +57,7 @@ public class GroundCollisionHandler : MonoBehaviour
         var fortune = UnityEngine.Random.Range(0,1001);
         if(fortune>950) DropGoodItem();
         else if (fortune<70 && fortune > 20) DropBadItem();
-        // else if (fortune <= 1) DropASituation();
+        else if (fortune <= 1) DropASituation();
 
     }
 

@@ -36,6 +36,7 @@ public class GameInfoUI : MonoBehaviour
 
     private void RefreshUI() 
     {
+        _info.GetComponent<TextMeshProUGUI>().text = (_player.ItemInPoket is null)?"Tasche vuote.":$"{_player.ItemInPoket.Name}";
         _capsule.SetActive(_player.HasCapsuleAvailable());
         _speed.GetComponent<TextMeshProUGUI>().text = $"Speed {_player.MoveSpeed}";
     }
