@@ -14,6 +14,9 @@ public class GroundCollisionHandler : MonoBehaviour
     public event EventHandler RefreshGameInfoUIEvent;
     public int Steps = 0;
     private int _life = 0;
+    private List<DisposableItemBase> GoodItems = new List<DisposableItemBase>();
+    private List<DisposableItemBase> BadItems = new List<DisposableItemBase>();
+    private List<DisposableItemBase> DisasterItems = new List<DisposableItemBase>();
 
     void Start()
     {
@@ -22,6 +25,13 @@ public class GroundCollisionHandler : MonoBehaviour
         _log = _gameHandler.Logger;
         _player = _gameHandler.Player;
         Initialized = true;
+
+        //good items
+        GoodItems.Add(new diSizeUP());
+        BadItems.Add(new diSizeDown());
+        BadItems.Add(new diNos());
+        //bad itms
+        BadItems.Add(new diTeleport());
     }
 
     void Update()
@@ -31,8 +41,8 @@ public class GroundCollisionHandler : MonoBehaviour
     public void CollisionFromPlayerHandler()
     {
         _log.Trace(this, "Aiahhh");
-        FeelLucky();
         HandleGroundType();
+        if(Steps == 1)FeelLucky();
     }
 
     public void ForceRefresh() => ChangeGroundType();
@@ -70,13 +80,13 @@ public class GroundCollisionHandler : MonoBehaviour
     public void DropGoodItem()
     {
         _log.Debug(this, "dropped good item");
-        _player.ItemInPoket = new diSizeUP();
+        _player.ItemInPoket = GoodItems[UnityEngine.Random.Range(0,GoodItems.Count-1)];
         _player.TriggerGameInfoUIRefresh();
     }
     public void DropBadItem()
     {
         _log.Debug(this, "dropped bad item");
-        _player.ItemInPoket = new diTeleport();
+        _player.ItemInPoket = BadItems[UnityEngine.Random.Range(0,GoodItems.Count-1)];
         _player.TriggerGameInfoUIRefresh();
         
     }
