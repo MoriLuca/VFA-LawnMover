@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _input;
     private int _index_size_x = 1;
     private int _index_size_y = 1;
-    private int[] _availableSizes = {0,1,3,5};
+    private int[] _availableSizes = {0,1,3,5,7,9,11};
     public DisposableItemBase ItemInPoket;
     private int _nosRemainigStep = 0;
 
@@ -111,8 +111,6 @@ public class PlayerController : MonoBehaviour
 
     private void UseItem()
     {
-
-
         var item = ItemInPoket;
         if(item != null)
         {
@@ -147,7 +145,6 @@ public class PlayerController : MonoBehaviour
     {
         RefreshGameInfoUIEvent?.Invoke(this, null);
     }
-
     public void SizeDown()
     {
         _index_size_x--;
@@ -157,10 +154,11 @@ public class PlayerController : MonoBehaviour
         ApplySize();
     }
     public void SizeUp(){
+        var maxIndex = _availableSizes.Length-1;
         _index_size_x++;
         _index_size_y++;
-        if(_index_size_x>3) _index_size_x=3;
-        if(_index_size_y>3) _index_size_y=3;
+        if(_index_size_x>maxIndex) _index_size_x=maxIndex;
+        if(_index_size_y>maxIndex) _index_size_y=maxIndex;
         ApplySize();
     }
 
@@ -169,7 +167,6 @@ public class PlayerController : MonoBehaviour
         _index_size_y = UnityEngine.Random.Range(1,4);
         ApplySize();
     }
-
     private void MapMoveSpeed()
     {
         var output_end = 3;
@@ -219,6 +216,7 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPosition;
 
         IsMoving = false;
+        TriggerGameInfoUIRefresh();
 
     }
 

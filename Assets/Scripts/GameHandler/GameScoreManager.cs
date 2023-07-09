@@ -38,7 +38,7 @@ public class GameScoreManager : MonoBehaviour
         var zolle = _groundManager.ElencoZolle;
         var totaleZolle = zolle.Count;
         var zolleGood = zolle.Count(z=>z.GetComponent<GroundCollisionHandler>().Steps == 1);
-        var richiestaLivello = 15;
+        var richiestaLivello = 60;
 
         var completamento = (int)MapValue(0, totaleZolle, 0, 100, zolleGood);
         var completmentoRichiesto = (int)MapValue(0, richiestaLivello, 0, 100, completamento);
