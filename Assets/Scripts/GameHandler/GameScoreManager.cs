@@ -42,7 +42,7 @@ public class GameScoreManager : MonoBehaviour
 
         var completamento = (int)MapValue(0, totaleZolle, 0, 100, zolleGood);
         var completmentoRichiesto = (int)MapValue(0, richiestaLivello, 0, 100, completamento);
-        _log.Debug(this, $"zolle: {totaleZolle}, bouone: {zolleGood}, percentage: {completamento}, rich livello :{completmentoRichiesto}");
+        _log.Trace(this, $"zolle: {totaleZolle}, bouone: {zolleGood}, percentage: {completamento}, rich livello :{completmentoRichiesto}");
         return completmentoRichiesto;
     }
 

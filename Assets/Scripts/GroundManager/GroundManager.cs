@@ -10,9 +10,10 @@ public class GroundManager : MonoBehaviour
     private Logger _log;
     public GameObject _zolla;
     public bool Initialized = false;
-    public int DimensioniCampoX = 50;
-    public int DimensioniCampoY = 20;
+    public int DimensioniCampoX = 80;
+    public int DimensioniCampoY = 50;
     public  List<GameObject> ElencoZolle {get; private set;} = new List<GameObject>();
+    private GameObject GroundPartent;
     private WorldStyle _worldStyle;
     public Sprite[] GroundStyleInUse = new Sprite[3];
     private Sprite[,] GroundStyleSprites = new Sprite[3,3];
@@ -20,6 +21,7 @@ public class GroundManager : MonoBehaviour
     {
         _log = GameHandler.Istance.Logger;
         _log.Trace(this, "Created");
+        GroundPartent = GameObject.FindWithTag("Ground");
         _zolla = Resources.Load<GameObject>("Prefabs/Ground/Ground");
 
         //plain style
@@ -70,6 +72,7 @@ public class GroundManager : MonoBehaviour
             for (int j = 0; j < DimensioniCampoY; j++)
             {
                 var zolla = Instantiate(_zolla, new Vector3(i, j, 0), Quaternion.identity);
+                zolla.transform.parent = GroundPartent.transform;
                 zolla.GetComponent<SpriteRenderer>().sprite = GroundStyleInUse[0];
                 ElencoZolle.Add(zolla);
             }
