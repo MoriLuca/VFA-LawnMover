@@ -28,10 +28,14 @@ public class GroundCollisionHandler : MonoBehaviour
 
         //good items
         GoodItems.Add(new diSizeUP());
+        
+        //bad itms
         BadItems.Add(new diSizeDown());
         BadItems.Add(new diNos());
-        //bad itms
+        BadItems.Add(new diSpeedUp());
         BadItems.Add(new diTeleport());
+        BadItems.Add(new diSpeedDown());
+        
     }
 
     void Update()
@@ -86,7 +90,7 @@ public class GroundCollisionHandler : MonoBehaviour
     public void DropBadItem()
     {
         _log.Debug(this, "dropped bad item");
-        _player.ItemInPoket = BadItems[UnityEngine.Random.Range(0,GoodItems.Count-1)];
+        _player.ItemInPoket = BadItems[UnityEngine.Random.Range(0,BadItems.Count-1)];
         _player.TriggerGameInfoUIRefresh();
         
     }

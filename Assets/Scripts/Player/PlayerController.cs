@@ -140,6 +140,15 @@ public class PlayerController : MonoBehaviour
         _groundManager.ChangeGraficStyle();
         TriggerGameInfoUIRefresh();
     }
+    public void SpeedUp()
+    {
+        MoveSpeed ++;
+    }
+    public void SpeedDown()
+    {
+        MoveSpeed --;
+        if(MoveSpeed < 1) MoveSpeed =1;
+    }
 
     public void TriggerGameInfoUIRefresh()
     {
