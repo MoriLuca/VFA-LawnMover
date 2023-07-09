@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private int _index_size_y = 1;
     private int[] _availableSizes = {0,1,3,5};
     public DisposableItemBase ItemInPoket;
+    private int _nosRemainigStep = 0;
+
     
 
     void Start()
@@ -46,6 +48,15 @@ public class PlayerController : MonoBehaviour
 
         if (!IsMoving)
         {
+            var movementStep = MovementStep;
+            var speed = MoveSpeed;
+
+            if(_nosRemainigStep>0)
+            {
+                movementStep = 4;
+                speed = MoveSpeed + 20;
+            }
+            
             _input.x = Input.GetAxisRaw("Horizontal");
             _input.y = Input.GetAxisRaw("Vertical");
 
@@ -53,11 +64,10 @@ public class PlayerController : MonoBehaviour
             if (_input != Vector2.zero )
             {   
                 
-
                 var moveRequestX = _input.x != 0;
                 var moveRequestY = _input.y != 0;
-                var moveStepX = MovementStep * _input.x;
-                var moveStepY = MovementStep * _input.y;
+                var moveStepX = movementStep * _input.x;
+                var moveStepY = movementStep * _input.y;
                 var targetPosition = transform.position;
                 if( moveRequestX ) moveStepY = 0;
 
@@ -68,13 +78,18 @@ public class PlayerController : MonoBehaviour
                 targetPosition.y += moveStepY;
                 if(IsWalkable(targetPosition))
                 {
-                    StartCoroutine(Move(targetPosition));
+                    StartCoroutine(Move(targetPosition, speed));
                     var vector2Int = new Vector2Int((int)targetPosition.x, (int)targetPosition.y);
                     //print($"player moved in x: {vector2Int.x} y: {vector2Int.y}");
                 }
                 
             }
         }
+    }
+
+    public void IncreseNOS(int nosStepToIncrease)
+    {
+        _nosRemainigStep += nosStepToIncrease;
     }
 
     private void PlayerAction()
@@ -185,13 +200,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    IEnumerator Move(Vector3 targetPosition)
+    IEnumerator Move(Vector3 targetPosition, float speed)
     {
         IsMoving = true;
-
+        if(_nosRemainigStep>0) _nosRemainigStep--;
         while ((targetPosition - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, MoveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
             yield return null;
         }
         transform.position = targetPosition;
