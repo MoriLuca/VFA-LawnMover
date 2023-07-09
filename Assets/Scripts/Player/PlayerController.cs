@@ -87,6 +87,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Teleport()
+    {
+        var go = _groundManager.ElencoZolle[UnityEngine.Random.Range(0,_groundManager.ElencoZolle.Count)];
+        var zollaPosition = go.transform.position;
+        gameObject.transform.position = zollaPosition;
+    }
+
     public void IncreseNOS(int nosStepToIncrease)
     {
         _nosRemainigStep += nosStepToIncrease;

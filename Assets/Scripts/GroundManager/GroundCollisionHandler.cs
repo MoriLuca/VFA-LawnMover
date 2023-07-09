@@ -76,7 +76,7 @@ public class GroundCollisionHandler : MonoBehaviour
     public void DropBadItem()
     {
         _log.Debug(this, "dropped bad item");
-        _player.ItemInPoket = new diNos();
+        _player.ItemInPoket = new diTeleport();
         _player.TriggerGameInfoUIRefresh();
         
     }
